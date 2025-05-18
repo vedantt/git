@@ -143,7 +143,7 @@ public class GitRepoActions {
     @Step("Cleaning up local repository directory: {this.localRepoPath}")
     public void cleanupRepository() throws IOException {
         if (Files.exists(localRepoPath)) {
-            // Simple recursive delete. For more robust deletion, consider Apache Commons IO FileUtils.deleteDirectory
+            // Simple recursive delete.
             Files.walk(localRepoPath)
                     .sorted(java.util.Comparator.reverseOrder())
                     .map(Path::toFile)
