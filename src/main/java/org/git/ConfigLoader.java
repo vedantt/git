@@ -28,16 +28,14 @@ public class ConfigLoader {
         try (InputStream input = ConfigLoader.class.getClassLoader().getResourceAsStream(fileName)) {
             if (input == null) {
                 LOGGER.log(Level.SEVERE, "Sorry, unable to find " + fileName + " in the classpath.");
-                // Optionally, throw a runtime exception if the file is critical
-                // throw new RuntimeException("Configuration file " + fileName + " not found.");
+
                 return;
             }
             properties.load(input);
             LOGGER.log(Level.INFO, "Successfully loaded properties from " + fileName);
         } catch (IOException ex) {
             LOGGER.log(Level.SEVERE, "IOException occurred while loading properties from " + fileName, ex);
-            // Optionally, rethrow as a runtime exception
-            // throw new RuntimeException("Failed to load properties from " + fileName, ex);
+
         }
     }
 
@@ -71,8 +69,7 @@ public class ConfigLoader {
         if (value != null && value.contains("{TIMESTAMP}")) {
             value = value.replace("{TIMESTAMP}", String.valueOf(System.currentTimeMillis()));
         }
-        // If key was not found, properties.getProperty(key, defaultValue) returns defaultValue,
-        // so no need for an extra warning here unless defaultValue itself is null.
+
         if (properties.getProperty(key) == null) {
             LOGGER.log(Level.FINE, "Property not found for key: " + key + ", using default value.");
         }
